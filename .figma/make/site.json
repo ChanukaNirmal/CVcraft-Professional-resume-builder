@@ -1,0 +1,10 @@
+{
+  "description": "Create professional, ATS-friendly resumes with an intuitive builder offering customizable templates, real-time previews, and PDF exports for job seekers.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
