@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react'
 import LandingPage from './screens/LandingPage'
 import BuilderWorkspace from './screens/BuilderWorkspace'
 import DownloadPage from './screens/DownloadPage'
+import LegalPage, { docFromPath } from './components/LegalPage'
+import CookieConsent from './components/CookieConsent'
+import { navigate, usePath } from './lib/router'
 import type { CVData } from './types'
 import { defaultCV } from './data/sampleCV'
 
@@ -22,6 +25,17 @@ export default function App() {
   }, [cvData])
 
   useEffect(() => { window.scrollTo(0, 0) }, [screen])
+
+  const path = usePath()
+  const legalDoc = docFromPath(path)
+  if (legalDoc) {
+    return (
+      <div className="min-h-screen" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+        <LegalPage doc={legalDoc} />
+        <CookieConsent onLearnMore={() => navigate('/cookie-policy')} />
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>

@@ -1,5 +1,7 @@
-import LegalModal, { type LegalDoc } from '../components/LegalModal'
+import { CONTACT, LEGAL_PATHS } from '../components/LegalPage'
+import { linkProps, navigate } from '../lib/router'
 import { useState, type MouseEvent } from 'react'
+import CookieConsent from '../components/CookieConsent'
 import CVPreview from '../components/CVPreview'
 import AdSlot from '../components/AdSlot'
 import { defaultCV } from '../data/sampleCV'
@@ -29,7 +31,6 @@ const features = [
 export default function LandingPage({ onStart }: Props) {
   const [templateFilter, setTemplateFilter] = useState<'all' | 'ats' | 'modern'>('all')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [legal, setLegal] = useState<LegalDoc | null>(null)
 
   const navItems = [['Templates', 'templates'], ['Features', 'features'], ['ATS Guide', 'ats-guide']] as const
   const goTo = (id: string) => (e: MouseEvent) => {
@@ -324,25 +325,58 @@ export default function LandingPage({ onStart }: Props) {
 
       {/* Footer */}
       <footer className="border-t border-slate-200 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-md flex items-center justify-center" style={{ background: '#2563EB' }}>
-              <svg width="12" height="12" viewBox="0 0 18 18" fill="none">
-                <rect x="2" y="2" width="6" height="8" rx="1" fill="white"/>
-                <rect x="10" y="2" width="6" height="4" rx="1" fill="white" fillOpacity="0.6"/>
-              </svg>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-6 h-6 rounded-md flex items-center justify-center" style={{ background: '#2563EB' }}>
+                <svg width="12" height="12" viewBox="0 0 18 18" fill="none">
+                  <rect x="2" y="2" width="6" height="8" rx="1" fill="white"/>
+                  <rect x="10" y="2" width="6" height="4" rx="1" fill="white" fillOpacity="0.6"/>
+                </svg>
+              </div>
+              <span className="font-700 text-slate-800">CVcraft</span>
             </div>
-            <span className="font-700 text-slate-800">CVcraft</span>
+            <p className="text-sm text-slate-500 leading-relaxed">Free, private, ATS-friendly CV builder. Create a professional resume in minutes.</p>
+            <div className="flex gap-2 mt-4">
+              <a href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-9 h-9 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-200 transition-colors">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+              </a>
+              <a href={CONTACT.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="w-9 h-9 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-900 hover:border-slate-300 transition-colors">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+              </a>
+            </div>
           </div>
-          <p className="text-xs text-slate-400">© 2026 CVcraft. All rights reserved. · <button onClick={() => setLegal('privacy')} className="hover:text-slate-600 hover:underline">Privacy</button> · <button onClick={() => setLegal('terms')} className="hover:text-slate-600 hover:underline">Terms</button></p>
-          <div className="flex gap-4">
-            {['Twitter', 'LinkedIn', 'GitHub'].map(s => (
-              <a key={s} href="#" className="text-xs text-slate-400 hover:text-slate-600 transition-colors">{s}</a>
-            ))}
+          <div>
+            <h4 className="text-sm font-700 text-slate-900 mb-3">Company</h4>
+            <ul className="space-y-2 text-sm text-slate-500">
+              <li><a {...linkProps(LEGAL_PATHS.about)} className="hover:text-slate-900">About Us</a></li>
+              <li><a {...linkProps(LEGAL_PATHS.contact)} className="hover:text-slate-900">Contact Us</a></li>
+              <li><a href="#templates" className="hover:text-slate-900">Templates</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-sm font-700 text-slate-900 mb-3">Legal</h4>
+            <ul className="space-y-2 text-sm text-slate-500">
+              <li><a {...linkProps(LEGAL_PATHS.privacy)} className="hover:text-slate-900">Privacy Policy</a></li>
+              <li><a {...linkProps(LEGAL_PATHS.terms)} className="hover:text-slate-900">Terms of Service</a></li>
+              <li><a {...linkProps(LEGAL_PATHS.cookies)} className="hover:text-slate-900">Cookie Policy</a></li>
+              <li><a {...linkProps(LEGAL_PATHS.disclaimer)} className="hover:text-slate-900">Disclaimer</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-sm font-700 text-slate-900 mb-3">Contact</h4>
+            <ul className="space-y-2 text-sm text-slate-500">
+              <li><a href={`mailto:${CONTACT.email}`} className="hover:text-slate-900 break-all">{CONTACT.email}</a></li>
+              <li><a href={CONTACT.whatsappLink} target="_blank" rel="noopener noreferrer" className="hover:text-slate-900">WhatsApp: {CONTACT.whatsappDisplay}</a></li>
+              <li>{CONTACT.location}</li>
+            </ul>
           </div>
         </div>
+        <div className="border-t border-slate-100">
+          <p className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 text-xs text-slate-400">© 2026 CVcraft. All rights reserved.</p>
+        </div>
       </footer>
-      {legal && <LegalModal doc={legal} onClose={() => setLegal(null)} />}
+      <CookieConsent onLearnMore={() => navigate(LEGAL_PATHS.cookies)} />
     </div>
   )
 }

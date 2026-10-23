@@ -1,0 +1,2 @@
+# 🟡 AdSense අනුමත වූ පසු pub-XXXXXXXXXXXXXXXX වෙනුවට ඔබගේ Publisher ID එක දමන්න
+google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
