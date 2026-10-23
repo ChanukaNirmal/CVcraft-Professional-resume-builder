@@ -11,7 +11,7 @@ import { useEffect, useRef } from 'react'
  * 4. ADSENSE_CLIENT හිස්ව තිබෙන තාක් කල් (development), සැබෑ දැන්වීම් වෙනුවට
  *    placeholder කොටුවක් පමණක් පෙන්වයි.
  * ========================================================================== */
-export const ADSENSE_CLIENT = '' // උදා: 'ca-pub-1234567890123456'
+export const ADSENSE_CLIENT = 'ca-pub-8910411350873474' // උදා: 'ca-pub-1234567890123456'
 
 // 🟡 එක් එක් දැන්වීම් ස්ථානය සඳහා ad slot ID (AdSense dashboard එකෙන් ලබාගන්න)
 export const AD_SLOTS = {
