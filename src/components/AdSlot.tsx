@@ -15,10 +15,10 @@ export const ADSENSE_CLIENT = 'ca-pub-8910411350873474' // උදා: 'ca-pub-12
 
 // 🟡 එක් එක් දැන්වීම් ස්ථානය සඳහා ad slot ID (AdSense dashboard එකෙන් ලබාගන්න)
 export const AD_SLOTS = {
-  leaderboard: '0000000001', // 728×90 — Landing / Download පිටු වල ඉහළ/පහළ තීරුව
-  mobileBanner: '0000000002', // 320×50 — ජංගම දුරකථන සඳහා කුඩා බැනරය
-  rectangle: '0000000003', // 300×250 — Builder form එක යට / Download පැති තීරුව
-  interstitial: '0000000004', // 300×250 — Download කිරීමට පෙර පෙන්වන modal දැන්වීම
+  leaderboard: '9717157548', // 728×90 — Landing / Download පිටු වල ඉහළ/පහළ තීරුව
+  mobileBanner: '1647095830', // 320×50 — ජංගම දුරකථන සඳහා කුඩා බැනරය
+  rectangle: '6652096221', // 300×250 — Builder form එක යට / Download පැති තීරුව
+  interstitial: '2521279520', // 300×250 — Download කිරීමට පෙර පෙන්වන modal දැන්වීම
 }
 
 declare global {
