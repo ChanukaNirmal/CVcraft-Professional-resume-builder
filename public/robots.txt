@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.cvcraft.tech/sitemap.xml
+Sitemap: https://cvcraft.tech/sitemap.xml
