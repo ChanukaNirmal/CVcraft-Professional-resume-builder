@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { CVData } from '../types'
 import CVPreview, { TEMPLATES } from '../components/CVPreview'
-import AdSlot from '../components/AdSlot'
 import { downloadElementAsPDF, printElement } from '../lib/pdf'
 
 interface Props {
@@ -20,11 +19,8 @@ const colors = [
   { label: 'Slate', value: '#0F172A' },
 ]
 
-const AD_SECONDS = 5
 
 export default function DownloadPage({ cvData, setCVData, onEdit, onHome }: Props) {
-  const [showAdModal, setShowAdModal] = useState(false)
-  const [countdown, setCountdown] = useState(AD_SECONDS)
   const [downloading, setDownloading] = useState(false)
   const [downloaded, setDownloaded] = useState(false)
   const [error, setError] = useState('')
@@ -56,25 +52,17 @@ export default function DownloadPage({ cvData, setCVData, onEdit, onHome }: Prop
     ]
   }, [cvData, pd])
 
-  // Interstitial countdown
-  useEffect(() => {
-    if (!showAdModal || countdown <= 0) return
-    const t = setTimeout(() => setCountdown(c => c - 1), 1000)
-    return () => clearTimeout(t)
-  }, [showAdModal, countdown])
-
   function flash(msg: string) {
     setToast(msg)
     setTimeout(() => setToast(''), 2400)
   }
 
+  // No ads on this utility screen (AdSense policy) — download starts immediately
   function handleDownload() {
-    setCountdown(AD_SECONDS)
-    setShowAdModal(true)
+    void startPdf()
   }
 
   async function startPdf() {
-    setShowAdModal(false)
     if (!exportRef.current) return
     setDownloading(true)
     setError('')
@@ -257,9 +245,6 @@ export default function DownloadPage({ cvData, setCVData, onEdit, onHome }: Prop
               <button onClick={onEdit} className="w-full mt-2 py-2.5 text-sm font-600 rounded-lg text-blue-600 hover:bg-blue-50 transition-colors">✏ Edit details</button>
             </div>
 
-            {/* 🟡 GOOGLE ADSENSE — Download පිටුවේ පැති තීරුවේ 300×250 Medium Rectangle දැන්වීම */}
-            <AdSlot slot="rectangle" width={300} height={250} label="300 × 250 — Medium Rectangle" />
-
             <div className="card p-4">
               <p className="section-label mb-3">CV Strength</p>
               <div className="space-y-3">
@@ -280,14 +265,6 @@ export default function DownloadPage({ cvData, setCVData, onEdit, onHome }: Prop
           </div>
         </div>
 
-        {/* 🟡 GOOGLE ADSENSE — Download බොත්තමට බොහෝ පහළින් Leaderboard දැන්වීම (ප්‍රධාන CTA එකට ආසන්න නොවේ) */}
-        <div className="mt-10">
-          {/* 🟡 Desktop: 728×90 Leaderboard */}
-          <AdSlot slot="leaderboard" width={728} height={90} label="728 × 90 — Leaderboard" className="hidden md:block" />
-          {/* 🟡 Mobile: 320×50 Banner */}
-          <AdSlot slot="mobileBanner" width={320} height={50} label="320 × 50 — Mobile Banner" className="md:hidden" />
-        </div>
-
         <div className="mt-8 text-center">
           <button onClick={onHome} className="text-sm text-slate-400 hover:text-slate-600 transition-colors">← Back to home</button>
         </div>
@@ -300,41 +277,6 @@ export default function DownloadPage({ cvData, setCVData, onEdit, onHome }: Prop
 
       {toast && <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white text-sm font-600 px-4 py-2.5 rounded-lg shadow-lg fade-in">{toast}</div>}
 
-      {/* ==================================================================
-          🟡 GOOGLE ADSENSE — Download Interstitial (Modal) දැන්වීම
-          ------------------------------------------------------------------
-          PDF download කිරීමට පෙර තත්පර කිහිපයක් පෙන්වන 300×250 දැන්වීම.
-          AdSense ප්‍රතිපත්තියට අනුකූලව: "Skip" බොත්තම සෑම විටම ඇත, ඔබට
-          දැන්වීම click කිරීමට බල නොකරයි, download එක දැන්වීම මත රඳා නොපවතී.
-          ================================================================== */}
-      {showAdModal && (
-        <div className="fixed inset-0 z-50 bg-slate-900/70 flex items-center justify-center p-4" onClick={e => e.target === e.currentTarget && setShowAdModal(false)}>
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden slide-up">
-            <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-              <div>
-                <p className="font-700 text-slate-900 text-sm">Almost ready!</p>
-                <p className="text-xs text-slate-400">{countdown > 0 ? `Your PDF will be ready in ${countdown}s` : 'Your PDF is ready.'}</p>
-              </div>
-              <button onClick={startPdf} className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-400 text-xs font-600">Skip</button>
-            </div>
-
-            <div className="p-4">
-              {/* 🟡 Interstitial දැන්වීම් ඒකකය */}
-              <AdSlot slot="interstitial" width={300} height={250} label="300 × 250 — Interstitial Ad" />
-            </div>
-
-            <div className="px-5 pb-5">
-              <div className="h-1 bg-slate-100 rounded-full overflow-hidden mb-3">
-                <div className="h-full transition-all duration-1000 ease-linear" style={{ width: `${((AD_SECONDS - countdown) / AD_SECONDS) * 100}%`, background: '#10B981' }}/>
-              </div>
-              <button onClick={startPdf} className="w-full btn-emerald py-3.5 text-sm flex items-center justify-center gap-2">
-                <DownloadIcon s={16} /> Download My PDF
-              </button>
-              <p className="text-[10px] text-slate-400 text-center mt-2">Generated in your browser. Your data stays private.</p>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

@@ -1,4 +1,5 @@
-import { CONTACT, LEGAL_PATHS } from '../components/LegalPage'
+import { SiteFooter } from '../components/SiteChrome'
+import { GUIDES } from '../data/guides'
 import { linkProps, navigate } from '../lib/router'
 import { useState, type MouseEvent } from 'react'
 import CookieConsent from '../components/CookieConsent'
@@ -20,10 +21,10 @@ const templates = [
 ]
 
 const features = [
-  { icon: '🎯', title: 'ATS-Optimized', desc: 'Parsed by all major applicant tracking systems including Greenhouse, Lever, and Workday.' },
+  { icon: '🎯', title: 'ATS-Optimized', desc: 'Single reading order and selectable PDF text, so applicant tracking systems can parse your CV.' },
   { icon: '⚡', title: 'AI Summary Generator', desc: 'Generate a compelling professional summary in seconds with our built-in AI assistant.' },
   { icon: '📄', title: 'One-Click PDF Export', desc: 'Download a pixel-perfect, print-ready PDF in A4 or US Letter format instantly.' },
-  { icon: '🎨', title: '6 Premium Templates', desc: 'Professionally designed layouts reviewed by Fortune 500 hiring managers.' },
+  { icon: '🎨', title: '6 Premium Templates', desc: 'Clean, professional layouts for every industry, from corporate to creative.' },
   { icon: '📱', title: 'Mobile-First Builder', desc: 'Build and update your CV from any device — phone, tablet, or desktop.' },
   { icon: '🔒', title: 'Private & Secure', desc: 'Your data never leaves your browser. No account required to get started.' },
 ]
@@ -33,6 +34,7 @@ export default function LandingPage({ onStart }: Props) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const navItems = [['Templates', 'templates'], ['Features', 'features'], ['ATS Guide', 'ats-guide']] as const
+  const pageLinks = [['CV Guides', '/guides'], ['CV Examples', '/cv-examples']] as const
   const goTo = (id: string) => (e: MouseEvent) => {
     e.preventDefault()
     setMobileMenuOpen(false)
@@ -63,6 +65,9 @@ export default function LandingPage({ onStart }: Props) {
               {navItems.map(([label, id]) => (
                 <a key={id} href={`#${id}`} onClick={goTo(id)} className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">{label}</a>
               ))}
+              {pageLinks.map(([label, path]) => (
+                <a key={path} {...linkProps(path)} className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">{label}</a>
+              ))}
             </nav>
 
             <div className="flex items-center gap-3">
@@ -88,6 +93,9 @@ export default function LandingPage({ onStart }: Props) {
               {navItems.map(([label, id]) => (
                 <a key={id} href={`#${id}`} onClick={goTo(id)} className="block py-2.5 text-sm font-medium text-slate-600 hover:text-slate-900">{label}</a>
               ))}
+              {pageLinks.map(([label, path]) => (
+                <a key={path} {...linkProps(path)} className="block py-2.5 text-sm font-medium text-slate-600 hover:text-slate-900">{label}</a>
+              ))}
             </div>
           )}
         </div>
@@ -105,7 +113,7 @@ export default function LandingPage({ onStart }: Props) {
             <div className="slide-up">
               <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 border border-blue-100 rounded-full px-4 py-1.5 text-xs font-600 mb-6">
                 <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"/>
-                Trusted by 120,000+ professionals
+                100% free · No sign-up required
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] font-800 text-slate-900 leading-[1.1] tracking-tight mb-6">
                 Build a Winning CV<br />
@@ -118,12 +126,12 @@ export default function LandingPage({ onStart }: Props) {
                 <button onClick={() => onStart()} className="btn-emerald px-7 py-3.5 text-base">
                   🚀 Start Building — It's Free
                 </button>
-                <button className="px-7 py-3.5 text-base font-600 text-slate-700 border border-slate-200 rounded-lg hover:bg-slate-50 hover:border-slate-300 transition-all">
-                  ▶ Watch Demo
+                <button onClick={() => navigate('/guides')} className="px-7 py-3.5 text-base font-600 text-slate-700 border border-slate-200 rounded-lg hover:bg-slate-50 hover:border-slate-300 transition-all">
+                  Read CV Guides
                 </button>
               </div>
               <div className="flex items-center gap-6 mt-8">
-                {[['4.9★', 'App Rating'], ['2 min', 'Avg. Build Time'], ['ATS', 'Guaranteed Pass']].map(([val, label]) => (
+                {[['6', 'Free Templates'], ['0', 'Sign-ups Needed'], ['PDF', 'Instant Download']].map(([val, label]) => (
                   <div key={label}>
                     <div className="text-lg font-700 text-slate-900">{val}</div>
                     <div className="text-xs text-slate-400 font-500">{label}</div>
@@ -316,67 +324,37 @@ export default function LandingPage({ onStart }: Props) {
         <div className="rounded-2xl p-10 text-center relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #1D4ED8 0%, #2563EB 100%)' }}>
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, white 0%, transparent 50%), radial-gradient(circle at 80% 20%, white 0%, transparent 50%)' }}/>
           <h2 className="text-3xl font-800 text-white mb-4 relative">Ready to Land Your Dream Job?</h2>
-          <p className="text-blue-100 mb-8 relative max-w-md mx-auto">Join 120,000+ professionals who built their winning CV with CVcraft.</p>
+          <p className="text-blue-100 mb-8 relative max-w-md mx-auto">Build a professional, ATS-friendly CV in minutes. Free, private, and no account needed.</p>
           <button onClick={() => onStart()} className="bg-white font-700 px-8 py-3.5 rounded-lg text-sm transition-all hover:shadow-lg hover:-translate-y-0.5 relative" style={{ color: '#2563EB' }}>
             🚀 Create My CV — Free
           </button>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-200 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      {/* Career guides — publisher content */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-6 h-6 rounded-md flex items-center justify-center" style={{ background: '#2563EB' }}>
-                <svg width="12" height="12" viewBox="0 0 18 18" fill="none">
-                  <rect x="2" y="2" width="6" height="8" rx="1" fill="white"/>
-                  <rect x="10" y="2" width="6" height="4" rx="1" fill="white" fillOpacity="0.6"/>
-                </svg>
-              </div>
-              <span className="font-700 text-slate-800">CVcraft</span>
-            </div>
-            <p className="text-sm text-slate-500 leading-relaxed">Free, private, ATS-friendly CV builder. Create a professional resume in minutes.</p>
-            <div className="flex gap-2 mt-4">
-              <a href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-9 h-9 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-200 transition-colors">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
-              </a>
-              <a href={CONTACT.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="w-9 h-9 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-900 hover:border-slate-300 transition-colors">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
-              </a>
-            </div>
+            <p className="section-label mb-3">Career Guides</p>
+            <h2 className="text-3xl font-800 text-slate-900">Learn to write a CV that gets interviews</h2>
+            <p className="text-slate-500 mt-2 max-w-xl">Free, in-depth guides with real examples, from ATS formatting to tips for Sri Lankan job seekers.</p>
           </div>
-          <div>
-            <h4 className="text-sm font-700 text-slate-900 mb-3">Company</h4>
-            <ul className="space-y-2 text-sm text-slate-500">
-              <li><a {...linkProps(LEGAL_PATHS.about)} className="hover:text-slate-900">About Us</a></li>
-              <li><a {...linkProps(LEGAL_PATHS.contact)} className="hover:text-slate-900">Contact Us</a></li>
-              <li><a href="#templates" className="hover:text-slate-900">Templates</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-sm font-700 text-slate-900 mb-3">Legal</h4>
-            <ul className="space-y-2 text-sm text-slate-500">
-              <li><a {...linkProps(LEGAL_PATHS.privacy)} className="hover:text-slate-900">Privacy Policy</a></li>
-              <li><a {...linkProps(LEGAL_PATHS.terms)} className="hover:text-slate-900">Terms of Service</a></li>
-              <li><a {...linkProps(LEGAL_PATHS.cookies)} className="hover:text-slate-900">Cookie Policy</a></li>
-              <li><a {...linkProps(LEGAL_PATHS.disclaimer)} className="hover:text-slate-900">Disclaimer</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-sm font-700 text-slate-900 mb-3">Contact</h4>
-            <ul className="space-y-2 text-sm text-slate-500">
-              <li><a href={`mailto:${CONTACT.email}`} className="hover:text-slate-900 break-all">{CONTACT.email}</a></li>
-              <li><a href={CONTACT.whatsappLink} target="_blank" rel="noopener noreferrer" className="hover:text-slate-900">WhatsApp: {CONTACT.whatsappDisplay}</a></li>
-              <li>{CONTACT.location}</li>
-            </ul>
-          </div>
+          <a {...linkProps('/guides')} className="text-sm font-700 text-blue-600 hover:underline shrink-0">View all guides →</a>
         </div>
-        <div className="border-t border-slate-100">
-          <p className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 text-xs text-slate-400">© 2026 CVcraft. All rights reserved.</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {GUIDES.slice(0, 4).map(g => (
+            <a key={g.slug} {...linkProps(`/guides/${g.slug}`)} className="flex flex-col rounded-2xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-md transition-all bg-white">
+              <span className="text-xs font-700 text-blue-600">{g.category}</span>
+              <h3 className="font-700 text-slate-900 mt-2 leading-snug">{g.title}</h3>
+              <p className="text-sm text-slate-500 mt-2 flex-1 line-clamp-3">{g.excerpt}</p>
+              <p className="text-xs text-slate-400 mt-4">{g.readMins} min read</p>
+            </a>
+          ))}
         </div>
-      </footer>
-      <CookieConsent onLearnMore={() => navigate(LEGAL_PATHS.cookies)} />
+      </section>
+
+      <SiteFooter />
+      <CookieConsent onLearnMore={() => navigate('/cookie-policy')} />
     </div>
   )
 }

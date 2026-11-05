@@ -1,7 +1,4 @@
-User-agent: Googlebot
-Allow: /
-
 User-agent: *
 Allow: /
 
-Sitemap: https://cvcraft.tech/sitemap.xml
+Sitemap: https://www.cvcraft.tech/sitemap.xml

@@ -5,6 +5,7 @@ import DownloadPage from './screens/DownloadPage'
 import LegalPage, { docFromPath } from './components/LegalPage'
 import CookieConsent from './components/CookieConsent'
 import { navigate, usePath } from './lib/router'
+import { ExamplesPage, GuideArticle, GuidesIndex, NotFound, TemplatesPage } from './screens/ContentPages'
 import type { CVData } from './types'
 import { defaultCV } from './data/sampleCV'
 
@@ -26,8 +27,31 @@ export default function App() {
 
   useEffect(() => { window.scrollTo(0, 0) }, [screen])
 
-  const path = usePath()
+  const path = usePath().replace(/\/+$/, '') || '/'
   const legalDoc = docFromPath(path)
+
+  // Content pages open the builder at "/" with an optional preset (template or example CV)
+  const startWith = (preset?: Partial<CVData>) => {
+    if (preset) setCVData(d => ({ ...d, ...preset }))
+    navigate('/')
+    setScreen('builder')
+  }
+
+  if (path !== '/' && !legalDoc) {
+    let page
+    if (path === '/guides') page = <GuidesIndex onStart={startWith} />
+    else if (path.startsWith('/guides/')) page = <GuideArticle slug={path.slice(8)} onStart={startWith} />
+    else if (path === '/templates') page = <TemplatesPage onStart={startWith} />
+    else if (path === '/cv-examples') page = <ExamplesPage onStart={startWith} />
+    else page = <NotFound onStart={startWith} />
+    return (
+      <div className="min-h-screen" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+        {page}
+        <CookieConsent onLearnMore={() => navigate('/cookie-policy')} />
+      </div>
+    )
+  }
+
   if (legalDoc) {
     return (
       <div className="min-h-screen" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>

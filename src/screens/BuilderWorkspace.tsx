@@ -1,7 +1,6 @@
 import { useState, useRef } from 'react'
 import type { CVData, Experience, Education, Project, Certification, Language } from '../types'
 import CVPreview, { TEMPLATES } from '../components/CVPreview'
-import AdSlot from '../components/AdSlot'
 
 interface Props {
   cvData: CVData
@@ -338,12 +337,6 @@ export default function BuilderWorkspace({ cvData, setCVData, onFinish, onBack }
               <span className="section-label">{mobileStep + 1} / {STEPS.length}</span>
             </div>
             {formSections[mobileStep]}
-
-            {/* 🟡 GOOGLE ADSENSE — Builder form එකට යටින් 300×250 Medium Rectangle දැන්වීම */}
-            {/* 🟡 Form input/බොත්තම් වලින් ඈතින් තබා ඇත (AdSense accidental-click ප්‍රතිපත්තිය) */}
-            <div className="mt-8">
-              <AdSlot slot="rectangle" width={300} height={250} label="300 × 250 — Medium Rectangle" />
-            </div>
           </div>
 
           {/* Bottom nav */}

@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.cvcraft.tech/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://www.cvcraft.tech/about</loc><priority>0.7</priority></url>
-  <url><loc>https://www.cvcraft.tech/contact</loc><priority>0.7</priority></url>
-  <url><loc>https://www.cvcraft.tech/privacy-policy</loc><priority>0.5</priority></url>
-  <url><loc>https://www.cvcraft.tech/terms</loc><priority>0.5</priority></url>
-  <url><loc>https://www.cvcraft.tech/cookie-policy</loc><priority>0.5</priority></url>
-  <url><loc>https://www.cvcraft.tech/disclaimer</loc><priority>0.5</priority></url>
+  <url><loc>https://www.cvcraft.tech/</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.cvcraft.tech/guides</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.cvcraft.tech/templates</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.cvcraft.tech/cv-examples</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.cvcraft.tech/guides/how-to-write-a-professional-cv</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.cvcraft.tech/guides/ats-friendly-resume</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.cvcraft.tech/guides/cv-format-for-fresh-graduates</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.cvcraft.tech/guides/professional-cv-summary</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.cvcraft.tech/guides/common-cv-mistakes</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.cvcraft.tech/guides/how-to-write-work-experience</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.cvcraft.tech/guides/cv-examples-it-professionals</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.cvcraft.tech/guides/cv-tips-sri-lankan-job-seekers</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.cvcraft.tech/about</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.cvcraft.tech/contact</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.cvcraft.tech/privacy-policy</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.cvcraft.tech/terms</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.cvcraft.tech/cookie-policy</loc><lastmod>2026-01-15</lastmod></url>
+  <url><loc>https://www.cvcraft.tech/disclaimer</loc><lastmod>2026-01-15</lastmod></url>
 </urlset>
